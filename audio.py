@@ -25,8 +25,8 @@ class AudioWorker(QThread):
     def run(self):
         try:
             # Available devices
-            logging.info("Input devices: {}".format(AudioStream.input_device_names))
-            logging.info("Output devices: {}".format(AudioStream.output_device_names))
+            logging.info(f"Input devices: {AudioStream.input_device_names}")
+            logging.info(f"Output devices: {AudioStream.output_device_names}")
 
             with AudioStream(
                     input_device_name="AXE IO One",  # Guitar interface
