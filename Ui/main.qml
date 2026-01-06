@@ -60,9 +60,10 @@ Window {
                 Layout.fillWidth: true
                 to: 30
                 stepSize: 1
+                snapMode: Slider.SnapAlways
                 value: Backend.gain
 
-                onMoved: Backend.gain = value
+                onValueChanged: Backend.gain = value
             }
 
             Label {
@@ -74,9 +75,10 @@ Window {
                 Layout.fillWidth: true
                 to: 2.0
                 stepSize: 0.1
+                snapMode: Slider.SnapAlways
                 value: Backend.delay
 
-                onMoved: Backend.delay = value
+                onValueChanged: Backend.delay = value
             }
 
             Label {
@@ -88,9 +90,10 @@ Window {
                 Layout.fillWidth: true
                 to: 1.0
                 stepSize: 0.1
+                snapMode: Slider.SnapAlways
                 value: Backend.reverb
 
-                onMoved: Backend.reverb = value
+                onValueChanged: Backend.reverb = value
             }
         }
 

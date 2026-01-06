@@ -32,6 +32,10 @@ class Backend(QObject):
             logging.error(f"Unable to start audio thread. Reason: {e}")
 
     # Getters and Setters
+    @staticmethod
+    def _is_not_equal(v1, v2) -> bool:
+        return abs(v2 - v1) > 0.001
+
     def get_input_device(self):
         return self._audio.input_device
 
@@ -42,42 +46,46 @@ class Backend(QObject):
         return self._audio.gain
 
     def set_gain(self, value):
-        if self._audio.gain != value:
+        if self._is_not_equal(self._audio.gain, value):
             logging.debug(f"Setting gain to {value}")
             self._audio.gain = value
             self.gainChanged.emit()
 
-    def set_delay(self, value):
-        if self._audio.delay != value:
-            logging.debug(f"Setting delay to {value}")
-            self._audio.delay = value
-
     def get_delay(self):
         return self._audio.delay
 
-    def set_reverb(self, value):
-        if self._audio.reverb != value:
-            logging.debug(f"Setting reverb to {value}")
-            self._audio.reverb = value
+    def set_delay(self, value):
+        if self._is_not_equal(self._audio.delay, value):
+            logging.debug(f"Setting delay to {value}")
+            self._audio.delay = value
+            self.delayChanged.emit()
 
     def get_reverb(self):
         return self._audio.reverb
+
+    def set_reverb(self, value):
+        if self._is_not_equal(self._audio.reverb, value):
+            logging.debug(f"Setting reverb to {value}")
+            self._audio.reverb = value
+            self.reverbChanged.emit()
+
+    def get_chorus(self):
+        return self._audio.chorus
 
     def set_chorus(self, value):
         if self._audio.chorus != value:
             logging.debug(f"Setting chorus to {value}")
             self._audio.chorus = value
+            self.chorusChanged.emit()
 
-    def get_chorus(self):
-        return self._audio.chorus
+    def get_phaser(self):
+        return self._audio.phaser
 
     def set_phaser(self, value):
         if self._audio.phaser != value:
             logging.debug(f"Setting phaser to {value}")
             self._audio.phaser = value
-
-    def get_phaser(self):
-        return self._audio.phaser
+            self.phaserChanged.emit()
 
     # Qt slots callable from QML code
     @Slot()
@@ -85,7 +93,7 @@ class Backend(QObject):
         self._audio.requestInterruption()
         self._audio.wait()
 
-    # Properties accessible from QML
+    # Properties accessible from QML code
     inputDevice = Property(str, get_input_device, notify=inputDeviceChanged)
     outputDevice = Property(str, get_output_device, notify=outputDeviceChanged)
     gain = Property(float, get_gain, set_gain, notify=gainChanged)

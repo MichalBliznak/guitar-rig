@@ -12,7 +12,7 @@ class AudioWorker(QThread):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self._delay = Delay(delay_seconds=1.0, feedback=0.25, mix=0.4)
-        self._reverb = Reverb(room_size=0.25)
+        self._reverb = Reverb(room_size=0.3)
         self._gain = Gain(gain_db=15)
         self._chorus = Chorus()
         self._phaser = Phaser()
