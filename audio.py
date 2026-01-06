@@ -14,8 +14,8 @@ class AudioWorker(QThread):
         self._delay = Delay(delay_seconds=1.0, feedback=0.25, mix=0.4)
         self._reverb = Reverb(room_size=0.3)
         self._gain = Gain(gain_db=15)
-        self._chorus = Chorus()
-        self._phaser = Phaser()
+        self._chorus = Chorus(rate_hz=1.0, mix=0.5)
+        self._phaser = Phaser(rate_hz=2.0, mix=0.8)
         self._board = Pedalboard([
               self._gain,
               self._delay,
