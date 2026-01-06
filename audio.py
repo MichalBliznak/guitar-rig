@@ -29,8 +29,8 @@ class AudioWorker(QThread):
             logging.info(f"Output devices: {AudioStream.output_device_names}")
 
             with AudioStream(
-                    input_device_name="AXE IO One",  # Guitar interface
-                    output_device_name="LS27A800U"
+                input_device_name="AXE IO One",  # Guitar interface
+                output_device_name="LS27A800U"
             ) as stream:
                 logging.info("Audio stream is running...")
 
@@ -44,7 +44,7 @@ class AudioWorker(QThread):
                 logging.info("Audio stream has been closed.")
 
         except Exception as e:
-            logging.error(f"Unexpected error when starting audio stream. Reason {e}")
+            logging.error(f"Unexpected error when starting audio stream. Reason: {e}")
 
     @property
     def gain(self):

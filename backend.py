@@ -83,6 +83,7 @@ class Backend(QObject):
     @Slot()
     def stop_audio(self):
         self._audio.requestInterruption()
+        self._audio.wait()
 
     # Properties accessible from QML
     inputDevice = Property(str, get_input_device, notify=inputDeviceChanged)
